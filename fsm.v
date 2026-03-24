@@ -33,8 +33,6 @@ module fsm (
   
     always @(*) begin
         case (state)
-            IDLE: y = 0;
-            WAIT: y = 0;
             DONE: y = 1;
             default: y = 0;
         endcase
