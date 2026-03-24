@@ -17,7 +17,7 @@ module testbench;
         .fsm_out(fsm_out)
     );
 
-    // Clock generation
+   
     always #5 c = ~c;
 
     initial begin
