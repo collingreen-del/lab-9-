@@ -1,24 +1,35 @@
-module top (
-    input c,
-    input reset,
-    input x,
-    output [3:0] count,
-    output fsm_out
+module top(
+    input [15:0] sw,
+    input btnC,
+    output [15:0] led
 );
 
-    // Counter
-    counter4 c1 (
-        .c(c),
-        .reset(reset),
-        .count(count)
-    );
+    
+    wire D = sw[0];
+    wire [1:0] addr = sw[7:6];
+    wire [7:0] data = sw[15:8];
 
-    // FSM
-    fsm f1 (
-        .c(c),
-        .reset(reset),
-        .x(x),
-        .y(fsm_out)
-    );
+    
+    reg Q;
+
+    always @(posedge btnC) begin
+        Q <= D;
+    end
+
+    assign led[0] = Q;
+    assign led[1] = ~Q;
+
+    
+    reg [7:0] mem [3:0];
+
+    always @(posedge btnC) begin
+        mem[addr] <= data;
+    end
+
+    
+    assign led[15:8] = mem[addr];
+
+    
+    assign led[7:2] = 0;
 
 endmodule
