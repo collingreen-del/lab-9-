@@ -12,7 +12,7 @@ module top(
     
     reg Q;
 
-    always @(posedge btnC) begin
+    always @(btnC,d ) begin
         Q <= D;
     end
 
@@ -22,7 +22,7 @@ module top(
     
     reg [7:0] mem [3:0];
 
-    always @(posedge btnC) begin
+    always @(btnC, d) begin
         mem[addr] <= data;
     end
 
