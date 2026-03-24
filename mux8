@@ -1,1 +1,15 @@
+module mux8(
+    input [3:0] mem,
+    input [1:0] sel,
+    input en,
+    output [3:0] Y
+);
 
+assign Y =
+    (en == 0) ? 4'b0000 :
+    (sel == 2'b00) ? mem[0] :
+    (sel == 2'b01) ? mem[1] :
+    (sel == 2'b10) ? mem[2] :
+                     mem[3]
+
+endmodule
