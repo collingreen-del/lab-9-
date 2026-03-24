@@ -1,15 +1,21 @@
 module mux8(
-    input [3:0] mem,
-    input [1:0] sel,
+    input [15:8] led,
+    input [2:0] sel,
     input en,
-    output [3:0] Y
+    output [7:0] Y
 );
 
 assign Y =
-    (en == 0) ? 4'b0000 :
-    (sel == 2'b00) ? mem[0] :
-    (sel == 2'b01) ? mem[1] :
-    (sel == 2'b10) ? mem[2] :
-                     mem[3]
+    (en == 0) ? 8'b00000000 :
+    (sel == 3'b000) ? led[8]:
+    (sel == 3'b001) ? led[9]:
+    (sel == 3'b010) ? led[10]:
+    (sel == 3'b011) ? led[11]:
+    (sel == 3'b100) ? led[12]:
+    (sel == 3'b101) ? led[13]:
+    (sel == 3'b110) ? led[14]:
+    (sel == 3'b101) ? led[15]:
+                    
+                     
 
 endmodule
