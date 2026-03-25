@@ -25,32 +25,34 @@ module top(
     
     reg [7:0] mem [3:0];
 
-    always @(btnC, d) begin
         //mem[addr] <= data;
-        en = 1;
+        wire [7:0] line;
+        
         demux8 D1(
             .in(line),
-            .sel(btnD, btnR),
-            .data[0](sw[9:8]),
-            .data[1](sw[11:10]),
-            .data[2](sw[13:12]),
-            .data[3](sw[15:14]),
+            .sel({btnD, btnR}),
+            .data({sw[9:8],[0]}),
+            .data({[sw[11:10],[1]}),
+            .data({sw[13:12], [2]}),
+            .data({sw[15:14], [3]}),
+            .en(1'b1)
+                    );
             
             
            
-            
-    end
-
+        
     
     //assign led[15:8] = mem[addr];
-            en = 1;
+        
         mux8 M1(
-            .mem[0](led[9:8]),
-            .mem[1](led[11:10]),
-            .mem[2](led[13:12]),
-            .mem[3](led[15:14]),
+            .mem({led[9:8], [0]}),
+            .mem({led[11:10], [1]}),
+            .mem({led[13:12], [2]}),
+            .mem({led[15:14], [3]}),
             .sel({btnU, btnl}),
-            .out(line)
+            .out(line),
+            .en(1'b1)
+        );
 
     
     assign led[7:2] = 0;
